@@ -93,6 +93,24 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** no instance found **")
 
+    def do_all(self, arg):
+        """
+        Prints all string representation of all instances based or not on the class name
+        """
+        if arg is not None and arg != "":
+            args = arg.split()
+            if args[0] not in storage.classtype():
+                print("** class doesn't exist **")
+            else:
+                objs = []
+                for key, obj in storage.all().items():
+                    if type(obj).__name__ == args[0]:
+                        objs.append(str(obj))
+                print(objs)
+        else:
+            objs = [str(obj) for key, obj in storage.all().items()]
+            print(objs)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
