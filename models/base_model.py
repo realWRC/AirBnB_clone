@@ -17,18 +17,19 @@ class BaseModel:
         """ Initialises instance attributes """
 
         if kwargs is not None and kwargs != {}:
-            if key == 'id':
-                self.id = uuid.UUID(value)
-            elif key == 'created_at':
-                self.created_at = datetime.strptime(value,
-                                                    "%Y-%m-%dT%H:%M:%S.%f")
-            elif key == 'updated_at':
-                self.updated_at = datetime.strptime(value,
-                                                    "%Y-%m-%dT%H:%M:%S.%f")
-            elif key == "__class__":
-                pass
-            else:
-                self.__dict__[key] = kwargs[key]
+            for key, value in kwargs.items():
+                if key == 'id':
+                    self.id = uuid.UUID(value)
+                elif key == 'created_at':
+                    self.created_at = datetime.strptime(value,
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == 'updated_at':
+                    self.updated_at = datetime.strptime(value,
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "__class__":
+                    pass
+                else:
+                    self.__dict__[key] = kwargs[key]
         else:
             self.id = uuid.uuid4()
             self.created_at = datetime.now()
