@@ -20,6 +20,14 @@ class HBNBCommand(cmd.Cmd):
         """ Exits the console """
         return True
 
+    def do_quit(self, arg):
+        """ Quits the console """
+        return True
+
+    def emptyline(self):
+        """ Do nothing on empty string """
+        pass
+
     def __arg_validate(self, args):
         """
         Validates the input of commands that require:
@@ -95,7 +103,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """
-        Prints all string representation of all instances based or not on the class name
+        Prints all string representation of all instances based or not on the
+        class name
         """
         if arg is not None and arg != "":
             args = arg.split()
