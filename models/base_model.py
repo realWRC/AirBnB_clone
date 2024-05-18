@@ -1,19 +1,21 @@
 #!/usr/bin/python3
 """ Module containing BaseModel """
 
-from . import storage
-from datetime import datetime
-import json
 import uuid
+from models import storage
+from datetime import datetime
 
 
 class BaseModel:
+
     """
     Defines class BaseModel which is a parent class for all classes in this
     project
     """
+
     def __init__(self, *args, **kwargs):
         """ Initialises instance attributes """
+
         if kwargs is not None and kwargs != {}:
             if key == 'id':
                 self.id = uuid.UUID(value)
@@ -35,6 +37,7 @@ class BaseModel:
 
     def save(self):
         """ Updates updated_at instance attribute """
+
         self.updated_at = datetime.now()
         storage.save()
 
@@ -43,6 +46,7 @@ class BaseModel:
         Returns dictionary of attribute value pairs in instance namespace:
             self_cpy - copy of instace __dict__ dictionary
         """
+
         self_cpy = self.__dict__.copy()
         self_cpy['id'] = str(self.id)
         self_cpy['__class__'] = type(self).__name__
@@ -51,6 +55,7 @@ class BaseModel:
         return self_cpy
 
     def __str__(self):
+
         """ Returns string representation of the class instance """
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
                                      self.__dict__)
