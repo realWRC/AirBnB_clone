@@ -111,6 +111,52 @@ class HBNBCommand(cmd.Cmd):
             objs = [str(obj) for key, obj in storage.all().items()]
             print(objs)
 
+    def do_update(self, arg):
+        """
+        Updates attribute of a choosen house
+        """
+        if arg is None or arg == "":
+            print("** class name missing **")
+            return
+        pattern = r'^(\S+)(?:\s+(\S+)(?:\s+(\S+)(?:\s+(\S+))?)?)?'
+        match = re.match(pattern, arg)
+        obj_class = match.group(1)
+        obj_id = match.group(2)
+        attribute = match.group(3)
+        value = match.group(4)
+        if not match:
+            print("** class name missing **")
+            return
+        if obj_class not in storage.classtype():
+            print("** class doesn't exist **")
+            return
+        if obj_id is None or obj_id == "":
+            print("** instance id missing **")
+            return
+        key = "{}.{}".format(obj_class, obj_id)
+        if key not in storage.all():
+            print("** no instance found **")
+            return
+        if attribute is None or attribute == "":
+            print("** attribute name missing **")
+            return
+        if value is None or value == "":
+            print("** value missing **")
+            return
+        print(obj_class)
+        print(obj_id)
+        print(attribute)
+        print(value)
+        if not re.search('^".*"$', value):
+            if '.' in value:
+                value = float(value)
+            else:
+                value = int(value)
+        else:
+            value = value.replace('"', '')
+        setattr(storage.all()[key], attribute, value)
+        storage.all()[key].save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
