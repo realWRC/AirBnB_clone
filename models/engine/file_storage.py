@@ -16,8 +16,12 @@ class FileStorage:
     def classtype(self):
         """ Returns possible classes of instance """
         from models.base_model import BaseModel
+        from models.user import User
 
-        classtype = {"BaseModel": BaseModel}
+        classtype = {
+                "BaseModel": BaseModel,
+                "User": User
+                }
         return classtype
 
     def all(self):
