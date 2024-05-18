@@ -155,10 +155,6 @@ class HBNBCommand(cmd.Cmd):
         if value is None or value == "":
             print("** value missing **")
             return
-        print(obj_class)
-        print(obj_id)
-        print(attribute)
-        print(value)
         if not re.search('^".*"$', value):
             if '.' in value:
                 value = float(value)

@@ -19,7 +19,12 @@ class FileStorage:
         from models.user import User
 
         classtype = {
+                "Amenity": Amenity,
                 "BaseModel": BaseModel,
+                "City": City,
+                "Place": Place,
+                "Review": Review,
+                "State": State,
                 "User": User
                 }
         return classtype
