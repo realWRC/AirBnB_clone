@@ -19,7 +19,7 @@ class BaseModel:
         if kwargs is not None and kwargs != {}:
             for key, value in kwargs.items():
                 if key == 'id':
-                    self.id = uuid.UUID(value)
+                    self.id = value
                 elif key == 'created_at':
                     self.created_at = datetime.strptime(value,
                                                         "%Y-%m-%dT%H:%M:%S.%f")
