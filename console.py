@@ -46,8 +46,6 @@ class HBNBCommand(cmd.Cmd):
         if len(args) > 2:
             print("Usage: <command> <class name> <id>")
             return True
-        if not self.__checkid(args[1]):
-            pass
 
     def do_create(self, arg):
         """
@@ -80,10 +78,12 @@ class HBNBCommand(cmd.Cmd):
                 return
             key = args[0] + "." + args[1]
             storage.reload()
+            if key not in storage.all():
+                print("** no instance found **")
             loaded = storage.all()
             print(loaded[key])
         except KeyError:
-            print("** no instance found **")
+            print("** KeyError **")
 
     def do_destroy(self, arg):
         """
@@ -95,11 +95,14 @@ class HBNBCommand(cmd.Cmd):
                 return
             key = args[0] + "." + args[1]
             storage.reload()
+            if key not in storage.all():
+                print("** no instance found **")
+                return
             loaded = storage.all()
             del(loaded[key])
             storage.save()
         except KeyError:
-            print("** no instance found **")
+            print("** KeyError **")
 
     def do_all(self, arg):
         """
