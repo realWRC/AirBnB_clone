@@ -13,6 +13,13 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+    def classtype(self):
+        """ Returns possible classes of instance """
+        from models.base_model import BaseModel
+
+        classtype = {"BaseModel": BaseModel}
+        return classtype
+
     def all(self):
         """ Returns the dictionary __objects """
         return FileStorage.__objects
@@ -31,3 +38,15 @@ class FileStorage:
             for key, value in FileStorage.__objects.items():
                 data[key] = value.to_dict()
             json.dump(data, file)
+
+    def reload(self):
+        """ Deserialises JSON file at __file_path to __objects """
+        if not os.path.isfile(FileStorage.__file_path):
+            return
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
+            loaded_data = {}
+            saved_data = json.load(file)
+            for key, value in saved_data.items():
+                loaded_data[key] = self.classtype()[value["__class__"]
+                                                    ](**value)
+            FileStorage.__objects = loaded_data
