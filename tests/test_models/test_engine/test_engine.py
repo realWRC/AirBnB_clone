@@ -21,10 +21,10 @@ class TestFileStorage(unittest.TestCase):
 
     def tearDown(self):
         """Tears down test methods."""
-        self.resetStorage()
+        self.reset()
         pass
 
-    def resetStorage(self):
+    def reset(self):
         """Resets FileStorage data."""
         FileStorage._FileStorage__objects = {}
         if os.path.isfile(FileStorage._FileStorage__file_path):
@@ -36,7 +36,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_init_zero_args(self):
         """Tests __init__ with no arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             FileStorage.__init__()
         message = "descriptor '__init__' of 'object' object needs an argument"
@@ -44,7 +44,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_init_multi_args(self):
         """Tests __init__ with many arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             obj = FileStorage(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
         message = "FileStorage() takes no arguments"
@@ -52,14 +52,14 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_attributes(self):
         """Tests class attributes."""
-        self.resetStorage()
+        self.reset()
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
         self.assertEqual(getattr(FileStorage, "_FileStorage__objects"), {})
 
     def all_test_helper(self, classname):
         """Helper tests all() method for classname."""
-        self.resetStorage()
+        self.reset()
         self.assertEqual(storage.all(), {})
         obj = storage.classtype()[classname]()
         storage.new(obj)
@@ -79,7 +79,7 @@ class TestFileStorage(unittest.TestCase):
 
     def all_overload_test_helper(self, classname):
         """Helper tests all() method with many objects for classname."""
-        self.resetStorage()
+        self.reset()
         self.assertEqual(storage.all(), {})
         supported = storage.classtype()[classname]
         objs = [supported() for i in range(1000)]
@@ -102,7 +102,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_all_zero_args(self):
         """Tests all() with no arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             FileStorage.all()
         message = "all() missing 1 required positional argument: 'self'"
@@ -110,7 +110,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_all_multi_args(self):
         """Tests all() with too many arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             FileStorage.all(self, 708)
         message = "all() takes 1 positional argument but 2 were given"
@@ -118,7 +118,7 @@ class TestFileStorage(unittest.TestCase):
 
     def new_test_helper(self, classname):
         """Helps tests new() method for all classes."""
-        self.resetStorage()
+        self.reset()
         supported = storage.classtype()[classname]
         obj = supported()
         storage.new(obj)
@@ -138,7 +138,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_new_zero_args(self):
         """Tests new() with no arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             storage.new()
         message = "new() missing 1 required positional argument: 'obj'"
@@ -146,7 +146,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_new_multi_args(self):
         """Tests new() with too many arguments."""
-        self.resetStorage()
+        self.reset()
         obj = BaseModel()
         with self.assertRaises(TypeError) as error:
             storage.new(obj, 109)
@@ -155,7 +155,7 @@ class TestFileStorage(unittest.TestCase):
 
     def save_test_helper(self, classname):
         """Helps tests save() method for classname."""
-        self.resetStorage()
+        self.reset()
         supported = storage.classtype()[classname]
         obj = supported()
         storage.new(obj)
@@ -181,7 +181,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_save_zero_args(self):
         """Tests save() with no arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             FileStorage.save()
         message = "save() missing 1 required positional argument: 'self'"
@@ -189,7 +189,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_save_overload(self):
         """Tests save() with too many arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             FileStorage.save(self, 109)
         message = "save() takes 1 positional argument but 2 were given"
@@ -197,7 +197,7 @@ class TestFileStorage(unittest.TestCase):
 
     def reload_test_helper(self, classname):
         """Helps test reload() with multiple classes."""
-        self.resetStorage()
+        self.reset()
         storage.reload()
         self.assertEqual(FileStorage._FileStorage__objects, {})
         supported = storage.classtype()[classname]
@@ -220,7 +220,7 @@ class TestFileStorage(unittest.TestCase):
 
     def reload_mismatch_test_helper(self, classname):
         """Helps test reload() method mismatch handling with classname."""
-        self.resetStorage()
+        self.reset()
         storage.reload()
         self.assertEqual(FileStorage._FileStorage__objects, {})
         supported = storage.classtype()[classname]
@@ -244,7 +244,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_reload_zero_args(self):
         """Tests reload() with no arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             FileStorage.reload()
         message = "reload() missing 1 required positional argument: 'self'"
@@ -252,7 +252,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_2_reload_multi_args(self):
         """Tests reload() with too many arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             FileStorage.reload(self, 108)
         message = "reload() takes 1 positional argument but 2 were given"

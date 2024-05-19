@@ -22,10 +22,10 @@ class TestBaseModel(unittest.TestCase):
 
     def tearDown(self):
         """Tears down methods as clean up post tests."""
-        self.resetStorage()
+        self.reset()
         pass
 
-    def resetStorage(self):
+    def reset(self):
         """Resets FileStorage."""
         FileStorage._FileStorage__objects = {}
         if os.path.isfile(FileStorage._FileStorage__file_path):
@@ -63,7 +63,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_1_zero_args(self):
         """Tests __init__ method with no arguments"""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as bug:
             BaseModel.__init__()
         text = "__init__() missing 1 required positional argument: 'self'"
@@ -71,7 +71,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_1_many_args(self):
         """Tests __init__ with many arguments."""
-        self.resetStorage()
+        self.reset()
         args = [i for i in range(1000)]
         obj = BaseModel(56, 23, 22, 83, 74, 95, 56, 27, 78, 39)
         obj = BaseModel(*args)
@@ -132,7 +132,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_1_to_dict_many_args(self):
         """Tests to_dict() with too many arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             BaseModel.to_dict(self, 567)
         mg = "to_dict() takes 1 positional argument but 2 were given"
@@ -140,7 +140,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_1_to_dict_zero_args(self):
         """Tests to_dict() with no arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             BaseModel.to_dict()
         mg = "to_dict() missing 1 required positional argument: 'self'"
@@ -148,7 +148,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_1_save(self):
         """Tests save() methods intergration with storage.save()."""
-        self.resetStorage()
+        self.reset()
         obj = BaseModel()
         obj.save()
         key = "{}.{}".format(type(obj).__name__, obj.id)
@@ -162,7 +162,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_1_save_zero_args(self):
         """Tests save() with no arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             BaseModel.save()
         mg = "save() missing 1 required positional argument: 'self'"
@@ -170,7 +170,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_1_save_many_args(self):
         """Tests save() with too many arguments."""
-        self.resetStorage()
+        self.reset()
         with self.assertRaises(TypeError) as error:
             BaseModel.save(self, 557)
         mg = "save() takes 1 positional argument but 2 were given"
