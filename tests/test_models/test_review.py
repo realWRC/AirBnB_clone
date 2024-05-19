@@ -8,6 +8,7 @@ from models.review import Review
 import os
 import unittest
 
+
 class TestReview(unittest.TestCase):
     """Test cases for class Review"""
 

@@ -8,6 +8,7 @@ from models.user import User
 import os
 import unittest
 
+
 class TestUser(unittest.TestCase):
     """Test cases for class User"""
 

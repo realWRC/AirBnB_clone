@@ -8,6 +8,7 @@ from models.amenity import Amenity
 import os
 import unittest
 
+
 class TestAmenity(unittest.TestCase):
     """Test cases for class Amenity"""
 

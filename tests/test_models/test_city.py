@@ -8,6 +8,7 @@ from models.city import City
 import os
 import unittest
 
+
 class TestCity(unittest.TestCase):
     """Test cases for class City"""
 

@@ -8,6 +8,7 @@ from models.place import Place
 import os
 import unittest
 
+
 class TestPlace(unittest.TestCase):
     """Test cases for class Place"""
 
