@@ -60,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
             if arg not in storage.classtype():
                 print("** class doesn't exist **")
                 return
-            obj = BaseModel()
+            obj = storage.classtype()[arg]()
             obj.save()
             print(obj.id)
         except ValueError:
@@ -80,6 +80,7 @@ class HBNBCommand(cmd.Cmd):
             storage.reload()
             if key not in storage.all():
                 print("** no instance found **")
+                return
             loaded = storage.all()
             print(loaded[key])
         except KeyError:
@@ -95,6 +96,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             key = args[0] + "." + args[1]
             storage.reload()
+            print(key)
             if key not in storage.all():
                 print("** no instance found **")
                 return
@@ -155,7 +157,7 @@ class HBNBCommand(cmd.Cmd):
         if value is None or value == "":
             print("** value missing **")
             return
-        if not re.search('^".*"$', value):
+        if not re.search('^".*"$', value) and type(value) != str:
             if '.' in value:
                 value = float(value)
             else:
