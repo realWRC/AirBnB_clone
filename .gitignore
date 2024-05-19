@@ -5,3 +5,7 @@ file.json
 test_save_reload_user.py
 zisc.py
 /pycache/*
+/models/__pycache__/*
+/models/engine/__pycache__/*
+/tests/test_models/__pycache__/*
+/tests/test_models/test_engine/__pycache__/*
