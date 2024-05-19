@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """ Module containing FileStorage """
-
 import os
 import json
 
 
 class FileStorage:
+
     """
     Definition for class FileStorage for serialising instances to JSON and
     deserialising JSON to instances.
