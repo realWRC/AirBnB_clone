@@ -96,7 +96,6 @@ class HBNBCommand(cmd.Cmd):
                 return
             key = args[0] + "." + args[1]
             storage.reload()
-            print(key)
             if key not in storage.all():
                 print("** no instance found **")
                 return
@@ -166,6 +165,37 @@ class HBNBCommand(cmd.Cmd):
             value = value.replace('"', '')
         setattr(storage.all()[key], attribute, value)
         storage.all()[key].save()
+
+    def default(self, arg):
+        """Catches and executes commands"""
+
+        all_pattern = r'^all (\w+)$'
+        show_pattern = r'^show (\w+) (\S+)$'
+        all_adv = r'^(\w+)\.all\(\)$'
+        show_adv = r'^(\w+)\.show\(([^)]+)\)$'
+        all_match = re.match(all_pattern, arg)
+        if all_match:
+            classname = all_match.group(1)
+            self.do_all(classname)
+            return
+        show_match = re.match(show_pattern, arg)
+        if show_match:
+            classname = show_match.group(1)
+            obj_id = show_match.group(2)
+            self.do_show("{} {}".format(classname, obj_id))
+            return
+        all_adv_match = re.match(all_adv, arg)
+        if all_adv_match:
+            classname = all_adv_match.group(1)
+            self.do_all(classname)
+            return
+        show_adv_match = re.match(show_adv, arg)
+        if show_adv_match:
+            classname = show_adv_match.group(1)
+            obj_id = show_adv_match.group(2)
+            self.do_show("{} {}".format(classname, obj_id))
+            return
+        super().default(arg)
 
 
 if __name__ == '__main__':
