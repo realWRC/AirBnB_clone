@@ -100,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
                 return
             loaded = storage.all()
-            del(loaded[key])
+            del (loaded[key])
             storage.save()
         except KeyError:
             print("** KeyError **")
@@ -156,7 +156,7 @@ class HBNBCommand(cmd.Cmd):
         if value is None or value == "":
             print("** value missing **")
             return
-        if not re.search('^".*"$', value) and type(value) != str:
+        if not re.search('^".*"$', value) and not isinstance(value, str):
             if '.' in value:
                 value = float(value)
             else:
