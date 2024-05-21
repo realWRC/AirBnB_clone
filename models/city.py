@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" Module for class City """
+"""Module for class City"""
+
 from models.base_model import BaseModel
 
 
@@ -9,5 +10,6 @@ class City(BaseModel):
         state_id = None
         name = None
     """
+
     state_id = ""
     name = ""
